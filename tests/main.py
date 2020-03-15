@@ -21,11 +21,22 @@ Created on Sun Mar  1 21:58:31 2020
 #+ Configuré
 #++ À renseigner
 
-global dict_extracts
+from pathlib import Path
+import os
+
+#path = Path(os.getcwd())
+#print(path.parent)
 
 main_config_name="main_config.txt"
 
 def extract_txt(filename):
+    
+    '''
+    Extracts lines of text from a .txt
+    
+    Returns a matrix with each line.
+    '''
+    
     with open(filename) as f:
         content = f.readlines()
     content = [x.strip() for x in content] 
@@ -33,8 +44,12 @@ def extract_txt(filename):
     return content
 
 def sort_data_from_extracted_txt(extracted_content):
-    '''Deletes lines without data, commentaries within the file
-    Creates a dictionary'''
+    
+    '''
+    Deletes lines without data, commentaries within the file
+    
+    Returns a dictionary.
+    '''
     
     field_value_dict=dict()
     
@@ -52,24 +67,39 @@ extracts=extract_txt(main_config_name)
 dict_extracts=sort_data_from_extracted_txt(extracts)
 print(dict_extracts)
 
-def iterate_on_list():
+# =============================================================================
+# Les champs extraits ne sont pas bien organisés pour le moment
+# Les données sont encore brutes, déjà assignées, mais brutes, dans un dictionnaire, organisées ainsi :
+#
+# dico[nom_du_champ_dans_txt] = valeur_du_champ_dans_txt
+#
+# =============================================================================
+
+def iterate_on_list(fields_filled):
     dict_iterated=dict()
-    for i in dict_extracts.keys():
+    for i in fields_filled.keys():
         try:
             [field,number]=i.split("_")
             
             if(dict_iterated.get(field)==None):
                 dict_iterated[field]=dict()
-            dict_iterated[field][number]=dict_extracts[i]
+            dict_iterated[field][number]=fields_filled[i]
         except:
             pass
 
     return dict_iterated
 
-pre_chosen_words=iterate_on_list()
+pre_chosen_words=iterate_on_list(dict_extracts)
 print(pre_chosen_words)
 
 def string_types_of_pre_chosen_words(category,words_dict):
+    
+    '''
+    Lists every possibility of a dictionnary that has fields organized with "_<number>", with corresponding number attributed.
+    
+    Returns the list corresponding 
+    '''
+    
     L=''
     for i in words_dict[category].keys():
         #Chaque liste de dictionnaire du dico
@@ -102,26 +132,79 @@ def chercheQuoi(num):
     else:
         raise "Vous n'avez pas défini quel type de boulot !"
 
+def saveMultipleEntries(category,words_dict,limit=5):
+    '''
+    Saves multiples arguments being inputted in a list.
+    '''
+    entree=''
+    liste_entrees=[]
+    i=0
+    while (entree!='q' and i<limit):
+        entree=''
+        print("Multiples entrées possibles.\n")
+        etudes=str(input(string_types_of_pre_chosen_words(category1,pre_chosen_words)+'\n'))
+        if(etudes!='q' and i<limit):
+            liste_entrees.append(words_dict[category][etudes])
+            i+=1
+        else:
+            break
+    print('\n')
+    return liste_entrees
+
+def generateArgument(num_formula,num_skills,words_dict,limit=10):
+    '''
+    Generate one line corresponding to one argument.
+    
+    todo after fully generating the first part
+    '''
+
 def generate():
+    
+    '''
+    Heart of the algorithm.
+    Generate two parts : "About you" part, and "Why me" part
+    The "Why you" part is left to the user to fill out.
+    
+    Returns the generated code.
+    '''
+    
+    # =============================================================================
+    #     WHO AM I
+    # =============================================================================
     
     etat=int(input("Laboratoire (0), Entreprise (1), Offre (2) ? "))
     cherche=int(input("Premier Emploi (0), CDI (1), CDD (2), Emploi (3), Stage (4) ? "))
     
-    #Ici sont utilisés les skills
-    #Plusieurs domaines peuvent coexister
+
     print("Dans quel domaine votre emploi sera orienté ?"+'\n')
     quoi=int(input(string_types_of_pre_chosen_words("skill",pre_chosen_words)+'\n'))
     
-    #Ici sont utilisés les skills
-    #Plusieurs matières peuvent coexister
-    etudes=str(input("Qu'avez vous étudié durant votre scolarité qui pourrait intéresser l'entrprise ? "))
+
+    print("Qu'avez vous étudié durant votre scolarité qui pourrait intéresser l'entrprise ?")
+    liste_etudes=saveMultipleEntries("skill",pre_chosen_words)
+    
     
     #Ici sont utilisés des sujets d'intérêt
-    cadre=str(input("Dans le cadre de quoi ? "))
+    #Jusqu'à 2 sujets/skills.
+    print("Dans le cadre de quoi ? Max. 2")
+    liste_cadre=saveMultipleEntries("skill",pre_chosen_words,limit=2)
     
     #Ici sont utilisés des pré-formulations
     #Seule une attente exigée
-    attente=str(input("Pourquoi ça correpond ? "))
+    print("À quoi correspond l'offre ?")
+    attente=saveMultipleEntries("correspondance",pre_chosen_words,limit=1)
+    
+    # =============================================================================
+    #     WHY ME
+    # =============================================================================
+    
+    argM=str(input("Redigez votre Argument maître en entier : "))
+    
+    att=str(input("Quelles attitudes seraient intéressantes pour le destinataire ?"))
+    
+    # =============================================================================
+    #     GENERATION
+    # =============================================================================
     
     entree="Madame, Monsieur,"+'\n'
     
@@ -133,10 +216,6 @@ def generate():
     #paragraphe_2
     #Le paragraphe 2 étant trop complexe à créer, il vaut mieux le rédiger soi-même.
     paragraphe_2=''
-    
-    argM=str(input("Redigez votre Argument maître en entier : "))
-    
-    att=str(input("Votre attitude est quoi ?"))
     
     #paragraphe_3
     #L'argument maitre serait à rédiger soi-même, c'est très facile à faire

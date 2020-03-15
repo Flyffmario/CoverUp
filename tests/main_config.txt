@@ -1,0 +1,70 @@
+//This is a comment-line. It is not read by the program.
+
+//Least-changed parameters
+firstname=Marc
+lastname=ROUY-BELTRAN
+politesse=Je reste à votre disposition pour de plus amples informations ou une potentielle rencontre.
+remerciements=Veuillez recevoir, Madame, Monsieur, mes plus respectueuses Salutations.
+contactmethods=
+
+//Occasionally changed parameters
+status=Étudiant en Ingéniérie Biomédicale
+interests=Biomécanique, Informatique, Machine-Learning, Robotique
+education=ESIPE-Créteil, Département ISBS
+
+//Skills
+skill_1=Biomécanique
+skill_2=Biomatériaux
+skill_3=Machine-Learning
+skill_4=Deep-Learning
+skill_5=Informatique
+skill_6=Python
+skill_7=C++
+skill_8=Modélisation 3D
+skill_9=Imagerie Médicale
+skill_10=Arduino
+skill_11=Gestion de Projet
+skill_12=R&D
+skill_13=Application
+skill_14=Gestion d'équipe
+
+//Projets
+project_1=Course en Cours
+project_2=Hackathon "e-Med"
+
+//Début Skills
+debutformule_1=J'ai des
+debutformule_2=J'ai une
+debutformule_3=J'ai
+debutformule_4=Durant
+debutformule_5=L'usage de
+debutformule_6=J'ai été
+debutformule_7=Je suis
+debutformule_8=Il
+
+//Formules Skills
+formule_1=J'ai des connaissances en
+formule_2=J'ai une familiarité avec
+formule_3=Je suis formé à
+formule_4=Passionné dans
+formule_5=J'ai appris à
+formule_6=Je suis appliqué au domaine de
+formule_7=Je suis épris de
+formule_8=pris de
+formule_9=m'est aisé d'apprendre
+formule_10=dans le domaine de
+formule_11=J'ai de plus des connaissances en
+formule_12=Je suis aussi formé en
+
+//Correspondances
+correspondance_1=à mon projet professionnel
+correspondance_2=à ce que je cherche
+correspondance_3=à mon profil et à ce que je recherche
+
+// Début Projets
+debutacquis_1=j'ai développé
+debutacquis_2=j'ai réalisé
+
+//Formules Projets
+acquis_1=incluant
+acquis_2=dontD
